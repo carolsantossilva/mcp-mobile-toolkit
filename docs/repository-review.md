@@ -5,9 +5,9 @@
 The repository currently contains a product definition and a GitHub Spec Kit
 scaffold, but no TypeScript MCP implementation yet.
 
-- `LICENSE` is the only tracked file in the current commit.
-- All current work except `LICENSE`, including `.gitignore`, `README.md`,
-  `AGENTS.md`, `docs/`, `.agents/`, and `.specify/`, is untracked.
+- Before this review, `LICENSE` was the only tracked project file.
+- The reviewed documentation, ignore rules, and minimal Spec Kit setup are now
+  tracked in separate commits.
 - There is no `package.json`, source code, test suite, example data, or CI.
 - The Spec Kit scaffold contains roughly 300 KB across more than 60 files.
 - Most of that volume is generated workflow, integration, extension, and agent
