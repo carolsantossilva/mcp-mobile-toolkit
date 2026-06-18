@@ -1,0 +1,16 @@
+installed:
+- agent-context
+
+settings:
+  auto_execute_hooks: false
+
+hooks:
+  after_plan:
+  - extension: agent-context
+    command: speckit.agent-context.update
+    enabled: true
+    optional: true
+    prompt: Update AGENTS.md with the current feature plan?
+    description: Refresh agent context after planning
+    condition: null
+
