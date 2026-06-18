@@ -1,10 +1,14 @@
 # Research: Mobile Analysis Tools
 
+Durable architecture decisions were extracted to
+[`docs/adr/`](../../docs/adr/README.md). This file retains feature-specific
+research and records how those decisions apply to this feature.
+
 ## Node.js and TypeScript baseline
 
-**Decision**: Require Node.js 22 or newer, use Node.js 24 as the primary
-development and CI runtime, and test both Node 22 and 24. Compile strict
-TypeScript ESM using NodeNext resolution.
+**Decision**: Apply
+[ADR 0001](../../docs/adr/0001-runtime-and-mcp-sdk.md): support Node.js 22 and
+24, compile strict TypeScript ESM, and use MCP SDK v1.29.x.
 
 **Rationale**: Node 24 is the current LTS reference on 2026-06-18 while Node 22
 remains supported. A Node 22 minimum keeps compatibility with existing MCP
@@ -18,28 +22,11 @@ hosts. NodeNext matches Node ESM semantics without a bundler.
 
 Source: [Node.js releases](https://nodejs.org/en/about/previous-releases)
 
-## MCP SDK generation
-
-**Decision**: Use `@modelcontextprotocol/sdk` 1.29.x with an exact lockfile and
-isolate it behind `src/server/`. Reassess SDK v2 only after its stable release
-and a compatibility spike.
-
-**Rationale**: The official SDK repository states that v2 is pre-alpha and v1.x
-remains recommended for production. The latest v1 release shown on 2026-06-18
-is 1.29.0. A thin server adapter contains future migration work without
-inventing a large protocol abstraction.
-
-**Alternatives considered**:
-
-- Start on v2: unacceptable churn risk before stable release.
-- Build directly on low-level JSON-RPC: duplicates SDK functionality and
-  increases protocol risk.
-
-Source: [Official MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
-
 ## Transport
 
-**Decision**: Support `stdio` only in version 1.
+**Decision**: Apply
+[ADR 0002](../../docs/adr/0002-stdio-only-transport.md): expose this feature
+only through local MCP `stdio`.
 
 **Rationale**: The target use is a local client-managed process. `stdio` avoids
 ports, authentication, remote exposure, and persistent services. `stdout` is
@@ -52,8 +39,9 @@ reserved exclusively for MCP framing; sanitized diagnostics use `stderr`.
 
 ## Validation and schemas
 
-**Decision**: Use Zod 4 strict objects as the source of public input/output
-contracts. Keep normalized internal representations separate from wire schemas.
+**Decision**: Apply
+[ADR 0004](../../docs/adr/0004-versioned-structured-contracts.md): use strict
+Zod 4 public schemas and keep normalized internal representations separate.
 
 **Rationale**: Zod 4 supports JSON Schema conversion and is compatible with the
 SDK. Strict objects prevent silently ignored fields. Separating normalized
@@ -71,9 +59,10 @@ Source: [Zod JSON Schema](https://zod.dev/json-schema)
 
 ## Structured results
 
-**Decision**: Every successful tool declares an output schema, returns validated
-`structuredContent`, and includes one text content item containing the canonical
-JSON serialization of the same object.
+**Decision**: Apply
+[ADR 0004](../../docs/adr/0004-versioned-structured-contracts.md): every
+successful tool returns validated structured content and the equivalent
+canonical JSON text fallback.
 
 **Rationale**: MCP supports structured output and recommends a text fallback
 for clients that do not consume structured content. Creating the object once
@@ -113,10 +102,9 @@ partial analysis, and internal failure without parsing free-form text.
 
 ## Determinism
 
-**Decision**: Define semantic determinism separately from textual determinism.
-Normalize LF and Unicode NFC for matching only, preserve source content after
-redaction, use total explicit comparators, and serialize the text fallback with
-a local canonical JSON implementation aligned with RFC 8785 ordering behavior.
+**Decision**: Apply
+[ADR 0005](../../docs/adr/0005-deterministic-offline-processing.md), including
+separate semantic and textual determinism.
 
 **Rationale**: JavaScript insertion order is not a sufficient public
 canonicalization contract. Locale-sensitive comparison, timestamps, random
@@ -134,10 +122,9 @@ Source: [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785)
 
 ## Security and limits
 
-**Decision**: Keep analyzers offline and stateless. Enforce UTF-8 byte,
-JavaScript character, cardinality, line-length, and depth limits. Redact before
-creating excerpts or errors. Use safe bounded patterns, adversarial regex tests,
-and `Map` or prototype-free records for external keys.
+**Decision**: Apply
+[ADR 0005](../../docs/adr/0005-deterministic-offline-processing.md). For this
+feature, use the concrete limits documented in `data-model.md`.
 
 **Rationale**: Artifacts commonly contain tokens, e-mail addresses, local paths,
 device identifiers, and very long lines. Limiting only aggregate request size

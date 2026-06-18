@@ -51,6 +51,13 @@ limits; logs up to 250,000 JavaScript characters; up to 500 feedback items,
 50 locale bundles, 100,000 total localization entries, 500 release checks, and
 50 evidence items per result
 
+**Architecture Decisions**:
+[ADR 0001](../../docs/adr/0001-runtime-and-mcp-sdk.md),
+[ADR 0002](../../docs/adr/0002-stdio-only-transport.md),
+[ADR 0003](../../docs/adr/0003-separate-protocol-from-analysis.md),
+[ADR 0004](../../docs/adr/0004-versioned-structured-contracts.md), and
+[ADR 0005](../../docs/adr/0005-deterministic-offline-processing.md)
+
 ## Constitution Check
 
 *GATE: Passed before Phase 0 research and re-checked after Phase 1 design.*
