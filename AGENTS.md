@@ -1,6 +1,6 @@
 <!-- SPECKIT START -->
-Until a feature-specific plan is created under `specs/`, read
-`docs/implementation-plan.md`.
+For feature-specific technology, structure, and implementation context, read
+`specs/001-mobile-analysis-tools/plan.md`.
 <!-- SPECKIT END -->
 
 # Project guidance
@@ -16,5 +16,5 @@ Until a feature-specific plan is created under `specs/`, read
 - Add contract tests for MCP-visible changes and unit tests for every analysis
   rule. Use Vitest and TypeScript test files.
 - Preserve stable ordering and deterministic output for equivalent inputs.
-- Read `docs/implementation-plan.md` until a feature-specific Spec Kit plan
-  supersedes it.
+- Read `specs/001-mobile-analysis-tools/plan.md` before implementing this
+  feature.
