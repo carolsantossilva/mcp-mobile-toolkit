@@ -1,0 +1,27 @@
+# Spec Kit local/runtime state
+.specify/feature.json
+.specify/**/*.tmp
+.specify/**/*.log
+
+# Node.js and TypeScript
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+.eslintcache
+.vitest/
+.nyc_output/
+tmp/
+temp/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
