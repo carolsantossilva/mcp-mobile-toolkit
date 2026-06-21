@@ -43,6 +43,13 @@ export function canonicalJson(value: JsonValue): string {
 
     let result: string;
     if (Array.isArray(current)) {
+      for (let index = 0; index < current.length; index += 1) {
+        if (!(index in current)) {
+          throw new TypeError(
+            "Canonical JSON does not support sparse arrays.",
+          );
+        }
+      }
       result = `[${current.map((item) => serialize(item)).join(",")}]`;
     } else {
       const prototype = Object.getPrototypeOf(current);

@@ -20,8 +20,6 @@ const POSIX_HOME_PATH_PATTERN =
   /(?:\/Users\/|\/home\/)[^/\s]+(?:\/[^:\s"'<>|]*)*/gu;
 const UUID_PATTERN =
   /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/giu;
-const DEVICE_IDENTIFIER_PATTERN =
-  /\b(?:[0-9a-f]{40}|[0-9a-f]{64}|[0-9a-f]{16})\b/giu;
 const LABELED_IDENTIFIER_PATTERN =
   /\b(device[_ -]?id|android[_ -]?id|identifier|udid|idfv|idfa)(\s*[:=]\s*)[A-Za-z0-9._:-]{6,255}\b/giu;
 
@@ -41,8 +39,7 @@ export function redactSensitiveText(value: string): string {
       (_match, label: string, separator: string) =>
         `${label}${separator}${REDACTION_MARKERS.identifier}`,
     )
-    .replace(UUID_PATTERN, REDACTION_MARKERS.identifier)
-    .replace(DEVICE_IDENTIFIER_PATTERN, REDACTION_MARKERS.identifier);
+    .replace(UUID_PATTERN, REDACTION_MARKERS.identifier);
 }
 
 export const redact = redactSensitiveText;
