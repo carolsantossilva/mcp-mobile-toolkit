@@ -20,8 +20,7 @@ describe("sensitive text redaction", () => {
   });
 
   it("redacts e-mail addresses and personal home paths", () => {
-    const input =
-      "alice@example.com C:\\Users\\alice\\repo\\file.kt /home/bob/app/file.swift /Users/carol/project";
+    const input = "alice@example.com C:\\Users\\alice\\repo\\file.kt /home/bob/app/file.swift /Users/carol/project";
     const result = redactSensitiveText(input);
 
     expect(result).not.toMatch(/alice|bob|carol|example\.com/u);
@@ -30,8 +29,7 @@ describe("sensitive text redaction", () => {
   });
 
   it("redacts UUIDs and labeled device identifiers", () => {
-    const input =
-      "device_id=ABCDEF0123456789 uuid=550e8400-e29b-41d4-a716-446655440000";
+    const input = "device_id=ABCDEF0123456789 uuid=550e8400-e29b-41d4-a716-446655440000";
     const result = redactSensitiveText(input);
 
     expect(result).not.toContain("ABCDEF0123456789");
@@ -40,9 +38,7 @@ describe("sensitive text redaction", () => {
   });
 
   it("preserves unrelated evidence text", () => {
-    expect(redactSensitiveText("Unresolved reference: getActiveCart")).toBe(
-      "Unresolved reference: getActiveCart",
-    );
+    expect(redactSensitiveText("Unresolved reference: getActiveCart")).toBe("Unresolved reference: getActiveCart");
   });
 
   it("preserves unlabeled commit hashes and checksums", () => {

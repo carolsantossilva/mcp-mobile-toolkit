@@ -18,9 +18,10 @@ describe("stable total ordering", () => {
       { id: "third", score: 1 },
     ];
     expect(
-      stableSort(values, compareBy((value) => value.score, compareNumbers)).map(
-        ({ id }) => id,
-      ),
+      stableSort(
+        values,
+        compareBy((value) => value.score, compareNumbers),
+      ).map(({ id }) => id),
     ).toEqual(["first", "second", "third"]);
   });
 
@@ -31,19 +32,12 @@ describe("stable total ordering", () => {
       { id: "c", severity: 2, score: 5 },
     ];
     const comparator = chainComparators(
-      compareBy(
-        (value) => value.severity,
-        reverseComparator(compareNumbers),
-      ),
+      compareBy((value) => value.severity, reverseComparator(compareNumbers)),
       compareBy((value) => value.score, reverseComparator(compareNumbers)),
       compareBy((value) => value.id, compareStrings),
     );
 
-    expect(stableSort(values, comparator).map(({ id }) => id)).toEqual([
-      "c",
-      "a",
-      "b",
-    ]);
+    expect(stableSort(values, comparator).map(({ id }) => id)).toEqual(["c", "a", "b"]);
   });
 
   it("places absent optional values deterministically", () => {

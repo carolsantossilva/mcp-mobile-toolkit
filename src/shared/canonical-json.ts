@@ -1,8 +1,5 @@
 export type JsonPrimitive = null | boolean | number | string;
-export type JsonValue =
-  | JsonPrimitive
-  | readonly JsonValue[]
-  | { readonly [key: string]: JsonValue };
+export type JsonValue = JsonPrimitive | readonly JsonValue[] | { readonly [key: string]: JsonValue };
 
 function serializeString(value: string): string {
   for (let index = 0; index < value.length; index += 1) {
@@ -45,9 +42,7 @@ export function canonicalJson(value: JsonValue): string {
     if (Array.isArray(current)) {
       for (let index = 0; index < current.length; index += 1) {
         if (!(index in current)) {
-          throw new TypeError(
-            "Canonical JSON does not support sparse arrays.",
-          );
+          throw new TypeError("Canonical JSON does not support sparse arrays.");
         }
       }
       result = `[${current.map((item) => serialize(item)).join(",")}]`;
@@ -59,9 +54,7 @@ export function canonicalJson(value: JsonValue): string {
       const object = current as Readonly<Record<string, JsonValue>>;
       const entries = Object.keys(object)
         .sort()
-        .map(
-          (key) => `${serializeString(key)}:${serialize(object[key] as JsonValue)}`,
-        );
+        .map((key) => `${serializeString(key)}:${serialize(object[key] as JsonValue)}`);
       result = `{${entries.join(",")}}`;
     }
 

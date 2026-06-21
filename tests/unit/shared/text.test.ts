@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  matchingLines,
-  normalizeForMatching,
-  normalizeLineEndings,
-} from "../../../src/shared/text.js";
+import { matchingLines, normalizeForMatching, normalizeLineEndings } from "../../../src/shared/text.js";
 
 describe("matching text normalization", () => {
   it("normalizes CRLF and CR to LF", () => {

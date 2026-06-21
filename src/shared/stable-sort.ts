@@ -30,15 +30,11 @@ export function compareOptional<T>(
   };
 }
 
-export function reverseComparator<T>(
-  comparator: Comparator<T>,
-): Comparator<T> {
+export function reverseComparator<T>(comparator: Comparator<T>): Comparator<T> {
   return (left, right) => comparator(right, left);
 }
 
-export function chainComparators<T>(
-  ...comparators: readonly Comparator<T>[]
-): Comparator<T> {
+export function chainComparators<T>(...comparators: readonly Comparator<T>[]): Comparator<T> {
   return (left, right) => {
     for (const comparator of comparators) {
       const result = comparator(left, right);
@@ -48,23 +44,13 @@ export function chainComparators<T>(
   };
 }
 
-export function compareBy<T, K>(
-  selector: (value: T) => K,
-  comparator: Comparator<K>,
-): Comparator<T> {
+export function compareBy<T, K>(selector: (value: T) => K, comparator: Comparator<K>): Comparator<T> {
   return (left, right) => comparator(selector(left), selector(right));
 }
 
-export function stableSort<T>(
-  values: readonly T[],
-  comparator: Comparator<T>,
-): T[] {
+export function stableSort<T>(values: readonly T[], comparator: Comparator<T>): T[] {
   return values
     .map((value, index) => ({ value, index }))
-    .sort(
-      (left, right) =>
-        comparator(left.value, right.value) ||
-        compareNumbers(left.index, right.index),
-    )
+    .sort((left, right) => comparator(left.value, right.value) || compareNumbers(left.index, right.index))
     .map(({ value }) => value);
 }

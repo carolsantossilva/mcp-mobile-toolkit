@@ -1,61 +1,61 @@
 {
-	"name": "mcp-mobile-toolkit",
-	"version": "0.1.0",
-	"description": "Deterministic MCP tools for mobile engineering.",
-	"license": "MIT",
-	"type": "module",
-	"bin": {
-		"mcp-mobile-toolkit": "./dist/index.js"
-	},
-	"files": [
-		"dist/",
-		"LICENSE",
-		"README.md",
-		"SECURITY.md"
-	],
-	"engines": {
-		"node": ">=22"
-	},
-	"packageManager": "npm@11.12.1",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/carolsantossilva/mcp-mobile-toolkit.git"
-	},
-	"bugs": {
-		"url": "https://github.com/carolsantossilva/mcp-mobile-toolkit/issues"
-	},
-	"homepage": "https://github.com/carolsantossilva/mcp-mobile-toolkit#readme",
-	"keywords": [
-		"mcp",
-		"model-context-protocol",
-		"mobile-development",
-		"developer-tools",
-		"automation"
-	],
-	"scripts": {
-		"build": "tsc",
-		"format": "prettier --write package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
-		"format:check": "prettier --check package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
-		"lint": "eslint src tests vitest.config.ts",
-		"test": "vitest run",
-		"test:coverage": "vitest run --coverage",
-		"test:watch": "vitest",
-		"typecheck": "tsc --noEmit",
-		"prepack": "npm run build"
-	},
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "1.29.0",
-		"zod": "4.4.3"
-	},
-	"devDependencies": {
-		"@eslint/js": "9.39.4",
-		"@types/node": "22.19.21",
-		"@vitest/coverage-v8": "4.1.9",
-		"eslint": "9.39.4",
-		"prettier": "3.8.4",
-		"tsx": "4.22.4",
-		"typescript": "5.9.3",
-		"typescript-eslint": "8.61.1",
-		"vitest": "4.1.9"
-	}
+  "name": "mcp-mobile-toolkit",
+  "version": "0.1.0",
+  "description": "Deterministic MCP tools for mobile engineering.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "mcp-mobile-toolkit": "./dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@11.12.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carolsantossilva/mcp-mobile-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carolsantossilva/mcp-mobile-toolkit/issues"
+  },
+  "homepage": "https://github.com/carolsantossilva/mcp-mobile-toolkit#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mobile-development",
+    "developer-tools",
+    "automation"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "lint": "eslint src tests vitest.config.ts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "@types/node": "22.19.21",
+    "@vitest/coverage-v8": "4.1.9",
+    "eslint": "9.39.4",
+    "prettier": "3.8.4",
+    "tsx": "4.22.4",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.61.1",
+    "vitest": "4.1.9"
+  }
 }

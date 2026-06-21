@@ -1,19 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  createEvidenceItem,
-  createOccurrenceId,
-  evidenceSource,
-} from "../../../src/shared/evidence.js";
+import { createEvidenceItem, createOccurrenceId, evidenceSource } from "../../../src/shared/evidence.js";
 
 describe("evidence construction", () => {
   it("creates deterministic, zero-padded occurrence IDs", () => {
-    expect(createOccurrenceId("build.kotlin.unresolved", 1)).toBe(
-      "build.kotlin.unresolved#001",
-    );
-    expect(createOccurrenceId("build.kotlin.unresolved", 50)).toBe(
-      "build.kotlin.unresolved#050",
-    );
+    expect(createOccurrenceId("build.kotlin.unresolved", 1)).toBe("build.kotlin.unresolved#001");
+    expect(createOccurrenceId("build.kotlin.unresolved", 50)).toBe("build.kotlin.unresolved#050");
   });
 
   it("rejects invalid rule and occurrence IDs", () => {

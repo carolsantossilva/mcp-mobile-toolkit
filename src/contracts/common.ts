@@ -10,10 +10,7 @@ export type SchemaVersion = z.infer<typeof SchemaVersionSchema>;
 const SEMANTIC_VERSION_PATTERN =
   /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
 
-export const SemanticVersionSchema = z
-  .string()
-  .max(100)
-  .regex(SEMANTIC_VERSION_PATTERN, "Expected a semantic version.");
+export const SemanticVersionSchema = z.string().max(100).regex(SEMANTIC_VERSION_PATTERN, "Expected a semantic version.");
 export type SemanticVersion = z.infer<typeof SemanticVersionSchema>;
 
 export const ConfidenceSchema = z.enum(["low", "medium", "high"]);
@@ -23,10 +20,7 @@ export const StableCodeSchema = z
   .string()
   .min(3)
   .max(120)
-  .regex(
-    /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$/,
-    "Expected a stable lowercase namespaced code.",
-  );
+  .regex(/^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$/, "Expected a stable lowercase namespaced code.");
 
 export const RuleIdSchema = StableCodeSchema;
 export type RuleId = z.infer<typeof RuleIdSchema>;
@@ -37,10 +31,7 @@ export type RuleSetVersion = SemanticVersion;
 export const EvidenceIdSchema = z
   .string()
   .max(124)
-  .regex(
-    /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+#\d{3}$/,
-    "Expected an evidence occurrence ID ending in #NNN.",
-  );
+  .regex(/^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+#\d{3}$/, "Expected an evidence occurrence ID ending in #NNN.");
 export type EvidenceId = z.infer<typeof EvidenceIdSchema>;
 
 export const TextLineEvidenceSourceSchema = z
@@ -81,24 +72,23 @@ export const InputFieldEvidenceSourceSchema = z
   })
   .strict();
 
-export const EvidenceSourceSchema = z.discriminatedUnion("type", [
-  TextLineEvidenceSourceSchema,
-  FeedbackEvidenceSourceSchema,
-  LocalizationEvidenceSourceSchema,
-  ReleaseCheckEvidenceSourceSchema,
-  InputFieldEvidenceSourceSchema,
-]).superRefine((source, context) => {
-  if (
-    source.type === "text_line_range" &&
-    source.endLine < source.startLine
-  ) {
-    context.addIssue({
-      code: "custom",
-      message: "endLine must be greater than or equal to startLine.",
-      path: ["endLine"],
-    });
-  }
-});
+export const EvidenceSourceSchema = z
+  .discriminatedUnion("type", [
+    TextLineEvidenceSourceSchema,
+    FeedbackEvidenceSourceSchema,
+    LocalizationEvidenceSourceSchema,
+    ReleaseCheckEvidenceSourceSchema,
+    InputFieldEvidenceSourceSchema,
+  ])
+  .superRefine((source, context) => {
+    if (source.type === "text_line_range" && source.endLine < source.startLine) {
+      context.addIssue({
+        code: "custom",
+        message: "endLine must be greater than or equal to startLine.",
+        path: ["endLine"],
+      });
+    }
+  });
 export type EvidenceSource = z.infer<typeof EvidenceSourceSchema>;
 
 export const EvidenceItemSchema = z
@@ -168,9 +158,7 @@ export type ErrorEnvelope = z.infer<typeof ErrorEnvelopeSchema>;
 export const ToolErrorEnvelopeSchema = ErrorEnvelopeSchema;
 export type ToolErrorEnvelope = ErrorEnvelope;
 
-export function createAnalysisResultSchema<T extends z.ZodType>(
-  dataSchema: T,
-) {
+export function createAnalysisResultSchema<T extends z.ZodType>(dataSchema: T) {
   return z
     .object({
       schemaVersion: SchemaVersionSchema,

@@ -47,20 +47,13 @@ export function assertMaxUtf8Bytes(
   }
 }
 
-export function assertCharacterLimit(
-  value: string,
-  maximum: number,
-  limit: LimitName,
-): void {
+export function assertCharacterLimit(value: string, maximum: number, limit: LimitName): void {
   if (value.length > maximum) {
     throw new LimitExceededError(limit, maximum);
   }
 }
 
-export function assertLineLengthLimit(
-  value: string,
-  maximum = LIMITS.lineCharacters,
-): void {
+export function assertLineLengthLimit(value: string, maximum = LIMITS.lineCharacters): void {
   for (const line of value.split(/\r\n?|\n/u)) {
     if (line.length > maximum) {
       throw new LimitExceededError("lineCharacters", maximum);
@@ -68,11 +61,7 @@ export function assertLineLengthLimit(
   }
 }
 
-export function assertCollectionLimit(
-  size: number,
-  maximum: number,
-  limit: LimitName,
-): void {
+export function assertCollectionLimit(size: number, maximum: number, limit: LimitName): void {
   if (!Number.isSafeInteger(size) || size < 0 || size > maximum) {
     throw new LimitExceededError(limit, maximum);
   }
@@ -91,9 +80,7 @@ export function jsonDepth(value: unknown): number {
 
     ancestors.add(current);
     let maximum = depth;
-    const values = Array.isArray(current)
-      ? current
-      : Object.values(current as Record<string, unknown>);
+    const values = Array.isArray(current) ? current : Object.values(current as Record<string, unknown>);
     for (const child of values) {
       maximum = Math.max(maximum, visit(child, depth + 1));
     }
@@ -104,19 +91,13 @@ export function jsonDepth(value: unknown): number {
   return visit(value, 0);
 }
 
-export function assertJsonDepthLimit(
-  value: unknown,
-  maximum = LIMITS.jsonDepth,
-): void {
+export function assertJsonDepthLimit(value: unknown, maximum = LIMITS.jsonDepth): void {
   if (jsonDepth(value) > maximum) {
     throw new LimitExceededError("jsonDepth", maximum);
   }
 }
 
-export function assertAggregateJsonLimit(
-  value: unknown,
-  maximum = LIMITS.aggregateJsonBytes,
-): void {
+export function assertAggregateJsonLimit(value: unknown, maximum = LIMITS.aggregateJsonBytes): void {
   const serialized = JSON.stringify(value);
   if (serialized === undefined) {
     throw new TypeError("The value is not JSON serializable.");

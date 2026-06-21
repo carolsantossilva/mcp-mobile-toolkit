@@ -24,9 +24,7 @@ import {
 
 describe("common public contract", () => {
   it("validates a complete successful result envelope", () => {
-    const schema = createAnalysisResultSchema(
-      z.object({ findingCount: z.number().int().nonnegative() }).strict(),
-    );
+    const schema = createAnalysisResultSchema(z.object({ findingCount: z.number().int().nonnegative() }).strict());
     const result = schema.parse({
       schemaVersion: SCHEMA_VERSION,
       ruleSetVersion: "1.0.0",
@@ -70,9 +68,7 @@ describe("common public contract", () => {
   });
 
   it("enforces version, warning, evidence, and unavailable constraints", () => {
-    expect(SemanticVersionSchema.safeParse("1.2.3-beta.1+build.7").success).toBe(
-      true,
-    );
+    expect(SemanticVersionSchema.safeParse("1.2.3-beta.1+build.7").success).toBe(true);
     expect(SemanticVersionSchema.safeParse("v1.2").success).toBe(false);
     expect(
       UnavailableSchema.parse({
@@ -126,23 +122,13 @@ describe("common public contract", () => {
         command: "npm test",
       }).id,
     ).toBe("build.rerun_tests");
-    expect(PlatformSchema.options).toEqual([
-      "android",
-      "ios",
-      "cross_platform",
-      "native",
-    ]);
+    expect(PlatformSchema.options).toEqual(["android", "ios", "cross_platform", "native"]);
     expect(DetectablePlatformSchema.safeParse("auto").success).toBe(true);
     expect(MobilePlatformSchema.safeParse("native").success).toBe(false);
     expect(LocaleSchema.safeParse("pt-BR").success).toBe(true);
     expect(LocaleSchema.safeParse("../pt").success).toBe(false);
     expect(ReleaseTypeSchema.options).toEqual(["production", "hotfix"]);
-    expect(SeveritySchema.options).toEqual([
-      "low",
-      "medium",
-      "high",
-      "critical",
-    ]);
+    expect(SeveritySchema.options).toEqual(["low", "medium", "high", "critical"]);
     expect(PrioritySchema.options).toEqual(["P0", "P1", "P2", "P3"]);
   });
 });

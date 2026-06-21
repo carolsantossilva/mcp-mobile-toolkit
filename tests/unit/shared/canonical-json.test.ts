@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  canonicalJson,
-  type JsonValue,
-} from "../../../src/shared/canonical-json.js";
+import { canonicalJson, type JsonValue } from "../../../src/shared/canonical-json.js";
 
 describe("canonical JSON", () => {
   it("sorts object properties recursively by UTF-16 code units", () => {
@@ -13,9 +10,7 @@ describe("canonical JSON", () => {
         a: { beta: true, alpha: false },
         list: [{ y: 2, x: 1 }],
       }),
-    ).toBe(
-      '{"a":{"alpha":false,"beta":true},"list":[{"x":1,"y":2}],"z":1}',
-    );
+    ).toBe('{"a":{"alpha":false,"beta":true},"list":[{"x":1,"y":2}],"z":1}');
   });
 
   it("uses ECMAScript JSON string and number serialization", () => {
@@ -25,17 +20,13 @@ describe("canonical JSON", () => {
   });
 
   it("produces identical output for different insertion order", () => {
-    expect(canonicalJson({ b: 2, a: 1 })).toBe(
-      canonicalJson({ a: 1, b: 2 }),
-    );
+    expect(canonicalJson({ b: 2, a: 1 })).toBe(canonicalJson({ a: 1, b: 2 }));
   });
 
   it("rejects non-finite numbers, class instances, and circular values", () => {
     expect(() => canonicalJson(Number.NaN)).toThrow(TypeError);
     expect(() => canonicalJson(Number.POSITIVE_INFINITY)).toThrow(TypeError);
-    expect(() =>
-      canonicalJson(new Date() as unknown as JsonValue),
-    ).toThrow(TypeError);
+    expect(() => canonicalJson(new Date() as unknown as JsonValue)).toThrow(TypeError);
 
     const circular: Record<string, JsonValue> = {};
     circular.self = circular;
@@ -46,9 +37,7 @@ describe("canonical JSON", () => {
     const sparse = [1, 2, 3];
     delete sparse[1];
 
-    expect(() => canonicalJson(sparse as unknown as JsonValue)).toThrow(
-      TypeError,
-    );
+    expect(() => canonicalJson(sparse as unknown as JsonValue)).toThrow(TypeError);
   });
 
   it("rejects lone Unicode surrogates as required by RFC 8785", () => {
