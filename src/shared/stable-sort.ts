@@ -1,9 +1,9 @@
 export type Comparator<T> = (left: T, right: T) => number;
 
 export function compareNumbers(left: number, right: number): number {
-  if (Object.is(left, right)) return 0;
   if (Number.isNaN(left)) return 1;
   if (Number.isNaN(right)) return -1;
+  if (left === right) return 0;
   return left < right ? -1 : 1;
 }
 

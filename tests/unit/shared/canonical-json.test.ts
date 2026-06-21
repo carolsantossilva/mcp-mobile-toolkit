@@ -42,6 +42,15 @@ describe("canonical JSON", () => {
     expect(() => canonicalJson(circular)).toThrow(TypeError);
   });
 
+  it("rejects sparse arrays", () => {
+    const sparse = [1, 2, 3];
+    delete sparse[1];
+
+    expect(() => canonicalJson(sparse as unknown as JsonValue)).toThrow(
+      TypeError,
+    );
+  });
+
   it("rejects lone Unicode surrogates as required by RFC 8785", () => {
     expect(() => canonicalJson("\ud800")).toThrow(TypeError);
     expect(() => canonicalJson({ "\udc00": "value" })).toThrow(TypeError);
