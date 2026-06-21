@@ -222,7 +222,7 @@ class StrictProcessTransport {
   ): void => {
     this.flushTrailingOutput();
 
-    if (!this.closed && code !== 0) {
+    if (!this.closed) {
       this.onerror?.(
         new Error(
           `The compiled MCP server exited unexpectedly (${formatExit(code, signal)}).`,
