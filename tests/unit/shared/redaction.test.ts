@@ -44,4 +44,11 @@ describe("sensitive text redaction", () => {
       "Unresolved reference: getActiveCart",
     );
   });
+
+  it("preserves unlabeled commit hashes and checksums", () => {
+    const input =
+      "commit=0123456789abcdef0123456789abcdef01234567 sha256=abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789";
+
+    expect(redactSensitiveText(input)).toBe(input);
+  });
 });

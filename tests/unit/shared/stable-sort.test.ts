@@ -58,4 +58,9 @@ describe("stable total ordering", () => {
     expect(compareNumbers(1, Number.NaN)).toBe(-1);
     expect(compareNumbers(Number.NaN, Number.NaN)).toBe(0);
   });
+
+  it("treats signed zero as equal", () => {
+    expect(compareNumbers(-0, 0)).toBe(0);
+    expect(compareNumbers(0, -0)).toBe(0);
+  });
 });
