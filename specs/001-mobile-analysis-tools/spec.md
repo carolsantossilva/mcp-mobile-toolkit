@@ -225,25 +225,37 @@ unclassified counts, and evidence.
 
 ### Measurable Outcomes
 
-- **SC-001**: All seven capabilities can be discovered and invoked by a
-  compatible client using their documented contracts.
-- **SC-002**: Every accepted result validates against its published output
-  contract, and every documented invalid input is rejected consistently.
-- **SC-003**: Equivalent acceptance fixtures produce canonically equivalent
-  results in 100% of repeated runs on the supported runtime.
-- **SC-004**: For the accepted build and crash fixture suites, the documented
-  primary causal finding is ranked first in every case with sufficient
-  evidence.
-- **SC-005**: Every declared analysis rule has at least one positive or negative
-  verification case, and every decision-table branch has a verification case.
-- **SC-006**: Maximum-size accepted artifacts complete analysis within two
-  seconds in the reference test environment.
-- **SC-007**: Security verification finds no raw configured secret, e-mail,
-  personal path, or token value in returned evidence or failure messages.
+- **SC-001**: Users can discover and run all 7 requested capabilities, with
+  7/7 available and 0 missing or duplicate user-facing options in acceptance
+  tests.
+- **SC-002**: For accepted sample inputs, 100% of results satisfy the expected
+  response checks, and 100% of documented invalid inputs are rejected
+  consistently with a clear, sanitized message.
+- **SC-003**: Equivalent acceptance fixtures for localization and release
+  auditing produce canonically equivalent results in 100% of repeated runs on
+  the supported runtime.
+- **SC-004**: For accepted build-log fixtures, the primary build cause is
+  ranked first in 100% of cases with sufficient evidence, and downstream
+  termination messages never outrank the root cause.
+- **SC-005**: Across the supported use cases, 100% of documented major scenario
+  types have at least one representative acceptance case that returns the
+  expected user-visible outcome.
+- **SC-006**: Maximum-size accepted artifacts complete analysis within 2
+  seconds in the reference test environment in 100% of reference runs.
+- **SC-007**: Security verification finds 0 leaked secrets, e-mail addresses,
+  personal paths, or token values in returned evidence or failure messages.
 - **SC-008**: Regression plans never exceed 30 scenarios and preserve the
-  documented risk-priority ordering.
-- **SC-009**: Unsupported or ambiguous artifacts produce explicit confidence
-  limitations rather than unsupported definitive conclusions.
+  documented risk-priority ordering in 100% of generated plans.
+- **SC-009**: Unsupported or ambiguous artifacts always return an explicit
+  confidence limitation, and 0 such cases may claim a definitive root cause
+  without sufficient evidence.
+- **SC-010**: For incident and crash fixtures, 100% of accepted cases produce
+  the expected impact and priority outcome, including reduced confidence for
+  incomplete or unsymbolicated evidence.
+- **SC-011**: For feedback fixtures, 100% of repeated complaints are grouped
+  into the expected themes, negated complaints are not counted as active
+  issues, and unsupported or ambiguous items remain unclassified or
+  low-confidence.
 
 ## Constitution Alignment *(mandatory)*
 
