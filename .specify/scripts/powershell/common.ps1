@@ -293,10 +293,6 @@ function Get-FeaturePathsEnv {
     $featureJson = Join-Path $repoRoot '.specify/feature.json'
     if ($env:SPECIFY_FEATURE_DIRECTORY) {
         $featureDir = $env:SPECIFY_FEATURE_DIRECTORY
-        # Normalize relative paths to absolute under repo root
-        if (-not [System.IO.Path]::IsPathRooted($featureDir)) {
-            $featureDir = Join-Path $repoRoot $featureDir
-        }
     } elseif (Test-Path $featureJson) {
         $featureJsonRaw = Get-Content -LiteralPath $featureJson -Raw
         try {
@@ -307,16 +303,14 @@ function Get-FeaturePathsEnv {
         }
         if ($featureConfig.feature_directory) {
             $featureDir = $featureConfig.feature_directory
-            # Normalize relative paths to absolute under repo root
-            if (-not [System.IO.Path]::IsPathRooted($featureDir)) {
-                $featureDir = Join-Path $repoRoot $featureDir
-            }
         } else {
             $featureDir = Get-FeatureDirFromBranchPrefixOrExit -RepoRoot $repoRoot -CurrentBranch $currentBranch
         }
     } else {
         $featureDir = Get-FeatureDirFromBranchPrefixOrExit -RepoRoot $repoRoot -CurrentBranch $currentBranch
     }
+
+    $featureDir = Resolve-FeatureDirectory -RepoRoot $repoRoot -FeatureDirectory $featureDir
     
     [PSCustomObject]@{
         REPO_ROOT     = $repoRoot
@@ -331,6 +325,52 @@ function Get-FeaturePathsEnv {
         QUICKSTART    = Join-Path $featureDir 'quickstart.md'
         CONTRACTS_DIR = Join-Path $featureDir 'contracts'
     }
+}
+
+function Resolve-FeatureDirectory {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepoRoot,
+        [Parameter(Mandatory = $true)][string]$FeatureDirectory
+    )
+
+    if ([string]::IsNullOrWhiteSpace($FeatureDirectory)) {
+        [Console]::Error.WriteLine('ERROR: Feature directory is empty.')
+        exit 1
+    }
+
+    $baseRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
+    $candidate = if ([System.IO.Path]::IsPathRooted($FeatureDirectory)) {
+        $FeatureDirectory
+    } else {
+        Join-Path $baseRoot $FeatureDirectory
+    }
+
+    $fullCandidate = [System.IO.Path]::GetFullPath($candidate)
+    $separator = [System.IO.Path]::DirectorySeparatorChar
+    $repoWithSeparator = if ($baseRoot.EndsWith($separator)) {
+        $baseRoot
+    } else {
+        "$baseRoot$separator"
+    }
+
+    $comparison = if ($IsWindows -or $null -eq $IsWindows) {
+        [System.StringComparison]::OrdinalIgnoreCase
+    } else {
+        [System.StringComparison]::Ordinal
+    }
+
+    $insideRepo =
+        [string]::Equals($fullCandidate, $baseRoot, $comparison) -or
+        $fullCandidate.StartsWith($repoWithSeparator, $comparison)
+
+    if (-not $insideRepo) {
+        [Console]::Error.WriteLine(
+            "ERROR: Feature directory '$FeatureDirectory' resolves outside the repository root.",
+        )
+        exit 1
+    }
+
+    return $fullCandidate
 }
 
 function Test-FileExists {

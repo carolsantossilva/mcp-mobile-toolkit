@@ -52,10 +52,35 @@ function Test-ConfigObject {
     return $false
 }
 
+function Find-SpecifyRoot {
+    param([string]$StartDir = (Get-Location).Path)
+
+    $resolved = Resolve-Path -LiteralPath $StartDir -ErrorAction SilentlyContinue
+    $current = if ($resolved) { $resolved.Path } else { $null }
+    if (-not $current) {
+        return $null
+    }
+
+    while ($true) {
+        if (Test-Path -LiteralPath (Join-Path $current ".specify") -PathType Container) {
+            return $current
+        }
+
+        $parent = Split-Path $current -Parent
+        if ([string]::IsNullOrEmpty($parent) -or $parent -eq $current) {
+            return $null
+        }
+        $current = $parent
+    }
+}
+
 $ErrorActionPreference = 'Stop'
 $DefaultStart = '<!-- SPECKIT START -->'
 $DefaultEnd   = '<!-- SPECKIT END -->'
-$ProjectRoot  = (Get-Location).Path
+$ProjectRoot  = Find-SpecifyRoot
+if (-not $ProjectRoot) {
+    $ProjectRoot = (Get-Location).Path
+}
 $ExtConfig    = Join-Path $ProjectRoot '.specify/extensions/agent-context/agent-context-config.yml'
 
 if (-not (Test-Path -LiteralPath $ExtConfig)) {
