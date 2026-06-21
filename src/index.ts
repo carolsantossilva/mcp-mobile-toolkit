@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-/**
- * Executable package entry point.
- *
- * Server startup is added at the protocol boundary; analyzers must remain
- * independent from this module.
- */
-export {};
+import { startStdioServer } from "./server/create-server.js";
+
+try {
+  await startStdioServer();
+} catch (error) {
+  const message =
+    error instanceof Error ? error.message : "Unknown stdio server failure.";
+  process.stderr.write(`mcp-mobile-toolkit failed to start: ${message}\n`);
+  process.exitCode = 1;
+}
