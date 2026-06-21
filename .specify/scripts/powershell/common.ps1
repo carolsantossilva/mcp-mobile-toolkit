@@ -333,6 +333,52 @@ function Get-FeaturePathsEnv {
     }
 }
 
+function Resolve-FeatureDirectory {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepoRoot,
+        [Parameter(Mandatory = $true)][string]$FeatureDirectory
+    )
+
+    if ([string]::IsNullOrWhiteSpace($FeatureDirectory)) {
+        [Console]::Error.WriteLine('ERROR: Feature directory is empty.')
+        exit 1
+    }
+
+    $baseRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
+    $candidate = if ([System.IO.Path]::IsPathRooted($FeatureDirectory)) {
+        $FeatureDirectory
+    } else {
+        Join-Path $baseRoot $FeatureDirectory
+    }
+
+    $fullCandidate = [System.IO.Path]::GetFullPath($candidate)
+    $separator = [System.IO.Path]::DirectorySeparatorChar
+    $repoWithSeparator = if ($baseRoot.EndsWith($separator)) {
+        $baseRoot
+    } else {
+        "$baseRoot$separator"
+    }
+
+    $comparison = if ($IsWindows -or $null -eq $IsWindows) {
+        [System.StringComparison]::OrdinalIgnoreCase
+    } else {
+        [System.StringComparison]::Ordinal
+    }
+
+    $insideRepo =
+        [string]::Equals($fullCandidate, $baseRoot, $comparison) -or
+        $fullCandidate.StartsWith($repoWithSeparator, $comparison)
+
+    if (-not $insideRepo) {
+        [Console]::Error.WriteLine(
+            "ERROR: Feature directory '$FeatureDirectory' resolves outside the repository root.",
+        )
+        exit 1
+    }
+
+    return $fullCandidate
+}
+
 function Test-FileExists {
     param([string]$Path, [string]$Description)
     if (Test-Path -Path $Path -PathType Leaf) {

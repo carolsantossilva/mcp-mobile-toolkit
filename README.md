@@ -4,9 +4,8 @@
 mobile engineering triage work.
 
 > **Status:** pre-alpha planning. The MCP server and tools described below are
-> planned and are not implemented yet. See the
-> [implementation plan](docs/implementation-plan.md) and
-> [repository review](docs/repository-review.md).
+> planned and are not implemented yet. See the formal
+> [Spec Kit implementation plan](specs/001-mobile-analysis-tools/plan.md).
 
 Mobile teams spend a lot of time reading noisy crash logs, build failures,
 release notes, feedback, localization files, and bug reports before deciding
