@@ -2,8 +2,8 @@
 
 ## Discovery
 
-The server advertises the MCP `tools` capability. Each tool definition includes
-a unique name, description, strict input schema, and strict output schema.
+The server advertises the MCP `tools` capability. Each tool definition includes a unique name, description, strict input schema,
+and strict output schema.
 
 ## Successful result
 
@@ -19,13 +19,11 @@ a unique name, description, strict input schema, and strict output schema.
 }
 ```
 
-The object is returned as validated `structuredContent` and as one text content
-item containing its canonical JSON representation.
+The object is returned as validated `structuredContent` and as one text content item containing its canonical JSON representation.
 
 ## Tool execution error
 
-Schema, limit, precondition, unsupported-format, and internal failures return
-`isError: true` with sanitized text representing:
+Schema, limit, precondition, unsupported-format, and internal failures return `isError: true` with sanitized text representing:
 
 ```json
 {
@@ -45,8 +43,7 @@ Allowed base codes:
 - `analysis_unsupported_format`;
 - `analysis_failed`.
 
-Errors never include raw input, excerpts, stack traces, environment values, or
-filesystem paths.
+Errors never include raw input, excerpts, stack traces, environment values, or filesystem paths.
 
 ## Insufficient evidence
 
@@ -63,14 +60,11 @@ Valid but incomplete input returns a successful result with:
 - Returned excerpts preserve submitted text after redaction.
 - Arrays use explicit total comparators.
 - Canonical JSON property ordering is stable.
-- Results contain no timestamps, random IDs, host data, locale-dependent sort,
-  or discovery-order dependencies.
+- Results contain no timestamps, random IDs, host data, locale-dependent sort, or discovery-order dependencies.
 
 ## Security
 
-- Analyzers perform no network, device, filesystem, persistent-storage, or
-  environment-variable access.
+- Analyzers perform no network, device, filesystem, persistent-storage, or environment-variable access.
 - Excerpts are produced only after redaction.
-- Suggested commands come from an allowlisted catalog and never interpolate
-  untrusted log text.
+- Suggested commands come from an allowlisted catalog and never interpolate untrusted log text.
 - `stdout` is exclusively MCP protocol output.

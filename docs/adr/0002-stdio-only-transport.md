@@ -5,8 +5,8 @@
 
 ## Context
 
-The initial users run the toolkit as a local process launched by an MCP client.
-Remote hosting, authentication, and long-running services are not required.
+The initial users run the toolkit as a local process launched by an MCP client. Remote hosting, authentication, and long-running
+services are not required.
 
 ## Decision
 
@@ -17,8 +17,7 @@ Remote hosting, authentication, and long-running services are not required.
 
 ## Consequences
 
-- Version 1 needs no HTTP server, port configuration, authentication layer, or
-  persistent process.
+- Version 1 needs no HTTP server, port configuration, authentication layer, or persistent process.
 - Any accidental logging to `stdout` is a protocol defect.
 - Remote access requires a future decision and separate security model.
 
