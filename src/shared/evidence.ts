@@ -3,7 +3,7 @@ import { EvidenceItemSchema, RuleIdSchema } from "../contracts/common.js";
 import { LIMITS } from "./limits.js";
 import { redactSensitiveText } from "./redaction.js";
 
-export function createOccurrenceId(ruleId: RuleId  , occurrence: number): string {
+export function createOccurrenceId(ruleId: RuleId, occurrence: number): string {
   RuleIdSchema.parse(ruleId);
   if (!Number.isSafeInteger(occurrence) || occurrence < 1 || occurrence > 999) {
     throw new RangeError("Evidence occurrence must be an integer from 1 to 999.");
@@ -12,7 +12,7 @@ export function createOccurrenceId(ruleId: RuleId  , occurrence: number): string
 }
 
 export function createEvidenceItem(input: {
-  ruleId: RuleId  ;
+  ruleId: RuleId;
   occurrence: number;
   source: EvidenceSource;
   excerpt?: string;
