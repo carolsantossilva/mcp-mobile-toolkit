@@ -39,7 +39,7 @@ export function utf8ByteLength(value: string): number {
 
 export function assertMaxUtf8Bytes(
   value: string,
-  maximum = LIMITS.aggregateJsonBytes,
+  maximum: number = LIMITS.aggregateJsonBytes,
   limit: LimitName = "aggregateJsonBytes",
 ): void {
   if (utf8ByteLength(value) > maximum) {
@@ -53,7 +53,7 @@ export function assertCharacterLimit(value: string, maximum: number, limit: Limi
   }
 }
 
-export function assertLineLengthLimit(value: string, maximum = LIMITS.lineCharacters): void {
+export function assertLineLengthLimit(value: string, maximum: number = LIMITS.lineCharacters): void {
   for (const line of value.split(/\r\n?|\n/u)) {
     if (line.length > maximum) {
       throw new LimitExceededError("lineCharacters", maximum);
@@ -91,13 +91,13 @@ export function jsonDepth(value: unknown): number {
   return visit(value, 0);
 }
 
-export function assertJsonDepthLimit(value: unknown, maximum = LIMITS.jsonDepth): void {
+export function assertJsonDepthLimit(value: unknown, maximum: number = LIMITS.jsonDepth): void {
   if (jsonDepth(value) > maximum) {
     throw new LimitExceededError("jsonDepth", maximum);
   }
 }
 
-export function assertAggregateJsonLimit(value: unknown, maximum = LIMITS.aggregateJsonBytes): void {
+export function assertAggregateJsonLimit(value: unknown, maximum: number = LIMITS.aggregateJsonBytes): void {
   const serialized = stringifyJson(value);
   if (serialized === undefined) {
     throw new TypeError("The value is not JSON serializable.");

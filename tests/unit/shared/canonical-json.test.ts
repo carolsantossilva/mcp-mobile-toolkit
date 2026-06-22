@@ -29,7 +29,7 @@ describe("canonical JSON", () => {
     expect(() => canonicalJson(new Date() as unknown as JsonValue)).toThrow(TypeError);
 
     const circular: Record<string, JsonValue> = {};
-    circular.self = circular;
+    circular["self"] = circular;
     expect(() => canonicalJson(circular)).toThrow(TypeError);
   });
 

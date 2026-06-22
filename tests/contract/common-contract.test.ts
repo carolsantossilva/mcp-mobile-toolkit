@@ -42,7 +42,7 @@ describe("common public contract", () => {
       warnings: [],
     });
 
-    expect(result.schemaVersion).toBe("1.0");
+    expect(result["schemaVersion"]).toBe("1.0");
   });
 
   it("rejects unknown fields at every public object boundary", () => {
