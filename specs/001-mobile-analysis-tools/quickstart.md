@@ -1,7 +1,6 @@
 # Quickstart: Mobile Analysis Tools
 
-This quickstart describes the intended developer and client workflow after the
-feature is implemented.
+This quickstart describes the intended developer and client workflow after the feature is implemented.
 
 ## Prerequisites
 
@@ -28,8 +27,7 @@ The compiled entry point must not emit diagnostics to `stdout`.
 node dist/index.js
 ```
 
-The process waits for MCP messages on standard input. Operational diagnostics,
-if any, go to standard error.
+The process waits for MCP messages on standard input. Operational diagnostics, if any, go to standard error.
 
 ## Client configuration
 
@@ -80,11 +78,9 @@ The exact contract is defined in `contracts/`.
 ## Verification checkpoints
 
 1. `tools/list` includes only tools whose contracts and tests are complete.
-2. Every successful `structuredContent` value validates against its output
-   schema.
+2. Every successful `structuredContent` value validates against its output schema.
 3. The text fallback parses to the same canonical object.
 4. Invalid arguments produce a sanitized tool execution error.
 5. Incomplete but valid artifacts produce low-confidence success with warnings.
 6. Repeated equivalent fixtures produce equivalent canonical output.
-7. Redaction tests prove that configured secrets and personal paths do not
-   appear in results or errors.
+7. Redaction tests prove that configured secrets and personal paths do not appear in results or errors.

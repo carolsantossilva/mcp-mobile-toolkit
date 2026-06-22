@@ -1,17 +1,13 @@
 # mcp-mobile-toolkit
 
-`mcp-mobile-toolkit` is a TypeScript MCP server for automating repetitive
-mobile engineering triage work.
+`mcp-mobile-toolkit` is a TypeScript MCP server for automating repetitive mobile engineering triage work.
 
-> **Status:** pre-alpha planning. The MCP server and tools described below are
-> planned and are not implemented yet. See the formal
+> **Status:** pre-alpha planning. The MCP server and tools described below are planned and are not implemented yet. See the formal
 > [Spec Kit implementation plan](specs/001-mobile-analysis-tools/plan.md).
 
-Mobile teams spend a lot of time reading noisy crash logs, build failures,
-release notes, feedback, localization files, and bug reports before deciding
-what to do next. This project turns those repeated analysis workflows into
-structured MCP tools that can be called from AI clients and developer
-automation.
+Mobile teams spend a lot of time reading noisy crash logs, build failures, release notes, feedback, localization files, and bug
+reports before deciding what to do next. This project turns those repeated analysis workflows into structured MCP tools that can
+be called from AI clients and developer automation.
 
 ## Planned architecture
 
@@ -23,9 +19,8 @@ MCP client
     -> structured tool responses
 ```
 
-The server owns the MCP contract, validates tool inputs with Zod, and returns
-structured outputs that are easy for clients to render, summarize, or chain into
-follow-up actions.
+The server owns the MCP contract, validates tool inputs with Zod, and returns structured outputs that are easy for clients to
+render, summarize, or chain into follow-up actions.
 
 ## Planned scope v1
 
@@ -39,18 +34,15 @@ follow-up actions.
 
 ### `analyze_crash_log`
 
-Analyzes mobile stack traces and suggests the probable cause, affected area,
-and next steps.
+Analyzes mobile stack traces and suggests the probable cause, affected area, and next steps.
 
 ### `analyze_build_log`
 
-Summarizes build failures, identifies the main errors, and points to relevant
-files or commands.
+Summarizes build failures, identifies the main errors, and points to relevant files or commands.
 
 ### `analyze_app_feedback`
 
-Groups reviews, support tickets, or user feedback into themes, severity, and
-opportunities.
+Groups reviews, support tickets, or user feedback into themes, severity, and opportunities.
 
 ### `triage_mobile_issue`
 
@@ -87,9 +79,7 @@ Example output:
   "severity": "high",
   "probableCause": "CartRepository.getActiveCart was removed or renamed, but CheckoutViewModel still imports it.",
   "affectedArea": "Android checkout flow",
-  "relevantFiles": [
-    "android/app/src/main/java/com/example/checkout/CheckoutViewModel.kt"
-  ],
+  "relevantFiles": ["android/app/src/main/java/com/example/checkout/CheckoutViewModel.kt"],
   "nextSteps": [
     "Confirm the replacement repository method",
     "Update CheckoutViewModel imports and call sites",
@@ -109,14 +99,10 @@ Example output:
 
 Near-term tool ideas:
 
-- `compare_release_notes`: compare releases and highlight user-facing changes,
-  risks, and possible impact.
-- `detect_flaky_test_patterns`: identify unstable tests from history, logs, or
-  recurring failures.
-- `audit_app_store_metadata`: review title, description, keywords, and
-  screenshots for release consistency.
-- Design-system screen generator: create a mobile screen from existing design
-  system components.
+- `compare_release_notes`: compare releases and highlight user-facing changes, risks, and possible impact.
+- `detect_flaky_test_patterns`: identify unstable tests from history, logs, or recurring failures.
+- `audit_app_store_metadata`: review title, description, keywords, and screenshots for release consistency.
+- Design-system screen generator: create a mobile screen from existing design system components.
 
 Future integrations:
 
@@ -127,5 +113,4 @@ Future integrations:
 
 ## Repository Topics
 
-`mcp`, `model-context-protocol`, `typescript`, `mobile-development`,
-`ai-tools`, `developer-tools`, `automation`
+`mcp`, `model-context-protocol`, `typescript`, `mobile-development`, `ai-tools`, `developer-tools`, `automation`
