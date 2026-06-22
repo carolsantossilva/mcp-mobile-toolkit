@@ -23,15 +23,15 @@ independently testable increment.
 
 **Purpose**: Establish the package, build, quality, and publication baseline.
 
-- [x] T001 Create the npm package metadata, scripts, ESM `bin`, Node engine, and publication file list in `package.json`
-- [x] T002 Generate and commit the npm dependency lockfile in `package-lock.json`
-- [x] T003 [P] Configure strict NodeNext TypeScript compilation in `tsconfig.json`
-- [x] T004 [P] Configure Vitest projects and V8 coverage in `vitest.config.ts`
-- [x] T005 [P] Configure ESLint with TypeScript rules in `eslint.config.js`
-- [x] T006 [P] Configure formatting and generated-artifact exclusions in `.prettierrc.json` and `.prettierignore`
-- [x] T007 [P] Add Node 22/24 lint, typecheck, test, build, and package CI jobs in `.github/workflows/ci.yml`
-- [x] T008 [P] Document vulnerability reporting and sensitive fixture policy in `SECURITY.md`
-- [x] T009 Create the initial executable and test-helper entry files in `src/index.ts` and `tests/helpers/index.ts`
+- [ ] T001 Create the npm package metadata, scripts, ESM `bin`, Node engine, and publication file list in `package.json`
+- [ ] T002 Generate and commit the npm dependency lockfile in `package-lock.json`
+- [ ] T003 [P] Configure strict NodeNext TypeScript compilation in `tsconfig.json`
+- [ ] T004 [P] Configure Vitest projects and V8 coverage in `vitest.config.ts`
+- [ ] T005 [P] Configure ESLint with TypeScript rules in `eslint.config.js`
+- [ ] T006 [P] Configure formatting and generated-artifact exclusions in `.prettierrc.json` and `.prettierignore`
+- [ ] T007 [P] Add Node 22/24 lint, typecheck, test, build, and package CI jobs in `.github/workflows/ci.yml`
+- [ ] T008 [P] Document vulnerability reporting and sensitive fixture policy in `SECURITY.md`
+- [ ] T009 Create the initial executable and test-helper entry files in `src/index.ts` and `tests/helpers/index.ts`
 
 **Checkpoint**: The repository has a reproducible Node/TypeScript toolchain and
 CI definition.
@@ -45,21 +45,21 @@ infrastructure shared by all user stories.
 
 **CRITICAL**: No user-story tool may be registered before this phase completes.
 
-- [x] T010 Define shared strict Zod schemas for versions, confidence, warnings, evidence, unavailable values, actions, and errors in `src/contracts/common.ts`
-- [x] T011 [P] Define public platform, locale, release, severity, and priority enums in `src/contracts/taxonomies.ts`
-- [x] T012 [P] Implement UTF-8 byte, character, line, collection, and nesting limits in `src/shared/limits.ts`
-- [x] T013 [P] Implement LF/NFC matching normalization while preserving returned source text in `src/shared/text.ts`
-- [x] T014 [P] Implement token, e-mail, personal-path, identifier, and secret redaction in `src/shared/redaction.ts`
-- [x] T015 [P] Implement total comparators and stable array ordering in `src/shared/stable-sort.ts`
-- [x] T016 [P] Implement RFC 8785-aligned canonical JSON serialization in `src/shared/canonical-json.ts`
-- [x] T017 [P] Implement stable rule and occurrence IDs plus typed evidence construction in `src/shared/evidence.ts`
-- [x] T018 Implement successful structured/text result adaptation and sanitized `isError` results in `src/server/tool-result.ts`
-- [x] T019 Implement the MCP server factory and `stdio` transport wiring in `src/server/create-server.ts` and `src/index.ts`
-- [x] T020 Implement deferred tool registration so incomplete tools do not appear in `tools/list` in `src/server/register-tools.ts`
-- [x] T021 [P] Add unit tests for limits, normalization, ordering, canonical JSON, IDs, and redaction in `tests/unit/shared/`, plus import-boundary enforcement in `tests/unit/architecture/import-boundaries.test.ts`
-- [x] T022 [P] Add shared schema and error contract tests in `tests/contract/common-contract.test.ts`
-- [x] T023 Add an in-memory MCP client/server test harness in `tests/helpers/mcp-harness.ts`
-- [x] T024 Add a compiled-process `stdio` harness that rejects non-protocol `stdout` bytes in `tests/helpers/stdio-harness.ts`
+- [ ] T010 Define shared strict Zod schemas for versions, confidence, warnings, evidence, unavailable values, actions, and errors in `src/contracts/common.ts`
+- [ ] T011 [P] Define public platform, locale, release, severity, and priority enums in `src/contracts/taxonomies.ts`
+- [ ] T012 [P] Implement UTF-8 byte, character, line, collection, and nesting limits in `src/shared/limits.ts`
+- [ ] T013 [P] Implement LF/NFC matching normalization while preserving returned source text in `src/shared/text.ts`
+- [ ] T014 [P] Implement token, e-mail, personal-path, identifier, and secret redaction in `src/shared/redaction.ts`
+- [ ] T015 [P] Implement total comparators and stable array ordering in `src/shared/stable-sort.ts`
+- [ ] T016 [P] Implement RFC 8785-aligned canonical JSON serialization in `src/shared/canonical-json.ts`
+- [ ] T017 [P] Implement stable rule and occurrence IDs plus typed evidence construction in `src/shared/evidence.ts`
+- [ ] T018 Implement successful structured/text result adaptation and sanitized `isError` results in `src/server/tool-result.ts`
+- [ ] T019 Implement the MCP server factory and `stdio` transport wiring in `src/server/create-server.ts` and `src/index.ts`
+- [ ] T020 Implement deferred tool registration so incomplete tools do not appear in `tools/list` in `src/server/register-tools.ts`
+- [ ] T021 [P] Add unit tests for limits, normalization, ordering, canonical JSON, IDs, and redaction in `tests/unit/shared/`, plus import-boundary enforcement in `tests/unit/architecture/import-boundaries.test.ts`
+- [ ] T022 [P] Add shared schema and error contract tests in `tests/contract/common-contract.test.ts`
+- [ ] T023 Add an in-memory MCP client/server test harness in `tests/helpers/mcp-harness.ts`
+- [ ] T024 Add a compiled-process `stdio` harness that rejects non-protocol `stdout` bytes in `tests/helpers/stdio-harness.ts`
 
 **Checkpoint**: Shared contracts and a server with no public analysis tools are
 testable without network, filesystem access from analyzers, or persistent state.
