@@ -8,15 +8,12 @@ export type ToolRegistrar = (server: McpServer) => void;
  */
 const completedToolRegistrars: readonly ToolRegistrar[] = [];
 
-export function registerTools(
-  server: McpServer,
-  registrars: readonly ToolRegistrar[] = completedToolRegistrars,
-): void {
-  initializeEmptyToolRegistry(server);
+export function registerTools(server: McpServer, registrars: readonly ToolRegistrar[] = completedToolRegistrars): void {
+	initializeEmptyToolRegistry(server);
 
-  for (const register of registrars) {
-    register(server);
-  }
+	for (const register of registrars) {
+		register(server);
+	}
 }
 
 /**
@@ -26,15 +23,15 @@ export function registerTools(
  * tools/list.
  */
 function initializeEmptyToolRegistry(server: McpServer): void {
-  const bootstrap = server.registerTool(
-    "__mobile_toolkit_registry_bootstrap",
-    {
-      description: "Internal registry bootstrap.",
-    },
-    () => {
-      throw new Error("The internal registry bootstrap cannot be invoked.");
-    },
-  );
+	const bootstrap = server.registerTool(
+		"__mobile_toolkit_registry_bootstrap",
+		{
+			description: "Internal registry bootstrap.",
+		},
+		() => {
+			throw new Error("The internal registry bootstrap cannot be invoked.");
+		},
+	);
 
-  bootstrap.remove();
+	bootstrap.remove();
 }

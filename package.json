@@ -34,8 +34,8 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"format": "prettier --write package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
-		"format:check": "prettier --check package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
+		"format": "prettier --write package.json tsconfig.json tsconfig.eslint.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
+		"format:check": "prettier --check package.json tsconfig.json tsconfig.eslint.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
 		"lint": "eslint src tests vitest.config.ts",
 		"test": "vitest run",
 		"test:coverage": "vitest run --coverage",
