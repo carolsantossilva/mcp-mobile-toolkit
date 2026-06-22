@@ -98,9 +98,16 @@ export function assertJsonDepthLimit(value: unknown, maximum = LIMITS.jsonDepth)
 }
 
 export function assertAggregateJsonLimit(value: unknown, maximum = LIMITS.aggregateJsonBytes): void {
-  const serialized = JSON.stringify(value);
+  const serialized = stringifyJson(value);
   if (serialized === undefined) {
     throw new TypeError("The value is not JSON serializable.");
   }
   assertMaxUtf8Bytes(serialized, maximum, "aggregateJsonBytes");
+}
+
+function stringifyJson(value: unknown): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return JSON.stringify(value);
 }

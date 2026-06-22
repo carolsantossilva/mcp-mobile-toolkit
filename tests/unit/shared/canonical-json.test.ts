@@ -34,8 +34,9 @@ describe("canonical JSON", () => {
   });
 
   it("rejects sparse arrays", () => {
-    const sparse = [1, 2, 3];
-    delete sparse[1];
+    const sparse = new Array<number>(3);
+    sparse[0] = 1;
+    sparse[2] = 3;
 
     expect(() => canonicalJson(sparse as unknown as JsonValue)).toThrow(TypeError);
   });

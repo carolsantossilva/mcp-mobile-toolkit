@@ -158,7 +158,19 @@ export type ErrorEnvelope = z.infer<typeof ErrorEnvelopeSchema>;
 export const ToolErrorEnvelopeSchema = ErrorEnvelopeSchema;
 export type ToolErrorEnvelope = ErrorEnvelope;
 
-export function createAnalysisResultSchema<T extends z.ZodType>(dataSchema: T) {
+interface AnalysisResultSchemaShape<T extends z.ZodType> extends z.core.$ZodShape {
+  schemaVersion: typeof SchemaVersionSchema;
+  ruleSetVersion: typeof SemanticVersionSchema;
+  summary: z.ZodString;
+  confidence: typeof ConfidenceSchema;
+  data: T;
+  evidence: z.ZodArray<typeof EvidenceItemSchema>;
+  warnings: z.ZodArray<typeof WarningSchema>;
+}
+
+export function createAnalysisResultSchema<T extends z.ZodType>(
+  dataSchema: T,
+): z.ZodObject<AnalysisResultSchemaShape<T>, z.core.$strict> {
   return z
     .object({
       schemaVersion: SchemaVersionSchema,
@@ -174,7 +186,7 @@ export function createAnalysisResultSchema<T extends z.ZodType>(dataSchema: T) {
 
 export const analysisResultSchema = createAnalysisResultSchema;
 
-export type AnalysisResult<T> = {
+export interface AnalysisResult<T> {
   schemaVersion: SchemaVersion;
   ruleSetVersion: SemanticVersion;
   summary: string;
@@ -182,4 +194,4 @@ export type AnalysisResult<T> = {
   data: T;
   evidence: EvidenceItem[];
   warnings: Warning[];
-};
+}

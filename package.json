@@ -33,14 +33,14 @@
     "automation"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
     "format:check": "prettier --check package.json tsconfig.json vitest.config.ts eslint.config.js .prettierrc.json .github/workflows/*.yml SECURITY.md \"src/**/*.ts\" \"tests/**/*.ts\"",
     "lint": "eslint src tests vitest.config.ts",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "prepack": "npm run build"
   },
   "dependencies": {

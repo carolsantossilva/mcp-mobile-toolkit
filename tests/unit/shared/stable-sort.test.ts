@@ -26,15 +26,21 @@ describe("stable total ordering", () => {
   });
 
   it("chains total comparators without locale-sensitive sorting", () => {
-    const values = [
+    interface SortableValue {
+      id: string;
+      severity: number;
+      score: number;
+    }
+
+    const values: SortableValue[] = [
       { id: "b", severity: 1, score: 4 },
       { id: "a", severity: 2, score: 1 },
       { id: "c", severity: 2, score: 5 },
     ];
     const comparator = chainComparators(
-      compareBy((value) => value.severity, reverseComparator(compareNumbers)),
-      compareBy((value) => value.score, reverseComparator(compareNumbers)),
-      compareBy((value) => value.id, compareStrings),
+      compareBy((value: SortableValue) => value.severity, reverseComparator(compareNumbers)),
+      compareBy((value: SortableValue) => value.score, reverseComparator(compareNumbers)),
+      compareBy((value: SortableValue) => value.id, compareStrings),
     );
 
     expect(stableSort(values, comparator).map(({ id }) => id)).toEqual(["c", "a", "b"]);

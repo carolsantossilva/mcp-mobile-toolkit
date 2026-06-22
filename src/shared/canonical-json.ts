@@ -24,6 +24,10 @@ function serializeNumber(value: number): string {
   return Object.is(value, -0) ? "0" : JSON.stringify(value);
 }
 
+function isJsonArray(value: JsonValue): value is readonly JsonValue[] {
+  return Array.isArray(value);
+}
+
 export function canonicalJson(value: JsonValue): string {
   const ancestors = new Set<object>();
 
@@ -39,7 +43,7 @@ export function canonicalJson(value: JsonValue): string {
     ancestors.add(current);
 
     let result: string;
-    if (Array.isArray(current)) {
+    if (isJsonArray(current)) {
       for (let index = 0; index < current.length; index += 1) {
         if (!(index in current)) {
           throw new TypeError("Canonical JSON does not support sparse arrays.");
@@ -47,7 +51,7 @@ export function canonicalJson(value: JsonValue): string {
       }
       result = `[${current.map((item) => serialize(item)).join(",")}]`;
     } else {
-      const prototype = Object.getPrototypeOf(current);
+      const prototype = Object.getPrototypeOf(current) as object | null;
       if (prototype !== Object.prototype && prototype !== null) {
         throw new TypeError("Canonical JSON objects must be plain objects.");
       }
